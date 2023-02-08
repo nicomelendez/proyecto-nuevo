@@ -4,7 +4,7 @@ import { routes } from '../../../routes/routes'
 
 export const PublicLayout = () => {
   return (
-    <div className='h-screen flex-col bg-slate-500 '>
+    <div className='min-h-screen h-full flex-col bg-slate-500 '>
         <nav className='h-32'>
             <ul className='flex justify-center gap-5'>
                 {
@@ -30,11 +30,11 @@ export const PublicLayout = () => {
             <Route path='/*' element={<Navigate to={routes[0].to} replace/>}/>
         </Routes>
 
-        <footer>
-            <p>
-                Algo
+        {/* <footer className='text-center rounded-t-lg'>
+            <p className='h-10 mt-5'>
+                Nicolás Meléndez
             </p>
-        </footer>
+        </footer> */}
     </div>
   )
 }

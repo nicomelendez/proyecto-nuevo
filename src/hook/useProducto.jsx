@@ -4,14 +4,15 @@ import { Producto } from '../models/Producto';
 export const useProducto = () => {
 
     const [listaDeProductos, setProducto] = useState([])
-
+    
     const conseguirProductos = () =>{
         return listaDeProductos;
     }
 
-    const nuevoProducto = ({nombre}) => {
+    const nuevoProducto = ({nombre, descripcion, precio}) => {
         if(nombre.trim() !== ''){
-            const oProducto = new Producto(nombre);
+            const oProducto = new Producto(nombre, precio, descripcion);
+            console.log(oProducto)
             setProducto([...listaDeProductos, oProducto])
             return oProducto;
         }

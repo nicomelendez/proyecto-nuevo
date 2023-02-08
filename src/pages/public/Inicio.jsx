@@ -4,6 +4,8 @@ import { useForm } from '../../hook/useForm'
 
 const limpiarInput = (e)=>{
   e.target.nombre.value = '';
+  e.target.descripcion.value = '';
+  e.target.precio.value = null;
 }
 
 export const Inicio = () => {
@@ -15,7 +17,8 @@ export const Inicio = () => {
 
   const enviar = (e) =>{
     e.preventDefault();
-    const nuevo = nuevoProducto(form)
+    const oProducto = Object.fromEntries(new window.FormData(e.target))
+    const nuevo = nuevoProducto(oProducto)
     if(nuevo !== null){
       limpiarInput(e)
       limpiar()
@@ -48,7 +51,10 @@ export const Inicio = () => {
 
   return (
 
-    <section>
+    <section className=''>
+      <div className='text-center font-bold text-5xl pb-5'>
+        <h2>TuProducto</h2>
+      </div>
       <form onSubmit={enviar} className='flex-col space-y-5 items-center mx-auto w-2/4 text-center' >
         <div>
           <label>
@@ -56,12 +62,25 @@ export const Inicio = () => {
             <input className='w-full' type='text' name='nombre' onChange={changed}/>       
           </label>
         </div>
+        <div> 
+          <label>
+            Precio
+            <input className='w-full' type='number' name='precio' onChange={changed}/>       
+          </label>
+        </div>
+        <div>
+          <label>
+            Categoria
+            <input className='w-full' type='text' name='descripcion' onChange={changed}/>       
+          </label>
+        </div>          
+        
         <div>
           <button className='bg-white px-3 py-2'>Guardar</button>
         </div>
       </form>
 
-      <ul className='py-5 w-3/5 mx-auto'>
+      <ul className='py-5 w-full md:w-3/5 mx-auto'>
         {lista.length !== 0 ? (<li className='text-center py-2 font-bold'><p>Lista de productos</p></li>) : (<></>)}
         {lista.length !== 0 ? lista.map((item,i)=>{
 
@@ -71,7 +90,11 @@ export const Inicio = () => {
              ? (<div>
               <input className='' type='text' name='nombre' onChange={changed} />
              </div>) 
-             : (<p className='font-ligth w-4/5'>{item.conseguirNombre()}</p>)}
+             : (<>
+              <p className='font-ligth w-4/5'>{item.conseguirNombre()}</p>
+              <p className='font-ligth w-4/5'>{item.conseguirPrecio()}</p>
+              <p className='font-ligth w-4/5'>{item.conseguirCategoria()}</p>
+             </>)}
             </div>
             
             <div className='flex gap-5 px-2'>
